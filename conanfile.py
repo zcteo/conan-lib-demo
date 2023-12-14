@@ -27,6 +27,7 @@ class FooConan(ConanFile):
     # exports_sources = "CMakeLists.txt", "src/*", "test/*"
     no_copy_source = True
 
+    # 将源码路径保存在/tmp/name + version文件夹下面
     sources_file_path = os.path.join("/tmp", name + version)
 
     def set_name(self):

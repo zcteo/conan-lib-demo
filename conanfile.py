@@ -5,7 +5,7 @@ from conan.tools.build import cross_building
 from conan.tools.files import load, save, update_conandata, copy
 
 
-class FooConan(ConanFile):
+class Pkg(ConanFile):
     name = "conandemo"
     version = "0.0.1"
 
@@ -22,6 +22,7 @@ class FooConan(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
     generators = "CMakeDeps"
+    revision_mode = "scm"
 
     # Sources are located in the same place as this recipe, copy them to the recipe
     # exports_sources = "CMakeLists.txt", "src/*", "test/*"
@@ -74,7 +75,8 @@ class FooConan(ConanFile):
         cmake.configure()
         cmake.build()
         if not cross_building(self) and not self.conf.get("tools.build:skip_test", default=False):
-            self.run_unit_test()
+            # cmake.test()  # 这个方式没有详细日志
+            self.run('ctest --verbose')
 
     def package(self):
         cmake = CMake(self)
@@ -82,7 +84,3 @@ class FooConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = [self.name]
-
-    def run_unit_test(self):  # 自定义方法，运行单元测试
-        cmd = os.path.join("test", "test")
-        self.run(cmd, env="conanrun")

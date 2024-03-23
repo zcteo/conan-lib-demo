@@ -3,7 +3,7 @@ from conan import ConanFile
 from conan.tools.files import copy
 
 
-class FooConan(ConanFile):
+class Pkg(ConanFile):
     # Optional metadata
     license = "<Put the package license here>"
     author = "<Put your name here> <And your email here>"
@@ -24,10 +24,3 @@ class FooConan(ConanFile):
         lib_folder = os.path.join(self.build_folder, "lib")
         copy(self, "*", include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
         copy(self, "*", lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
-
-# 打包预先编译的二进制库；
-# conan export-pkg . name/version@
-# conan export-pkg . name/version@user/channel
-# 2.0 命令如下
-# conan export-pkg . --name name --version version
-# conan export-pkg . --name name --version version --user user --channel channel

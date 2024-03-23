@@ -20,7 +20,5 @@ class Pkg(ConanFile):
         pass
 
     def package(self):
-        include_folder = os.path.join(self.source_folder, "include")
-        lib_folder = os.path.join(self.build_folder, "lib")
-        copy(self, "*", include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
-        copy(self, "*", lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "include/*", self.source_folder, self.package_folder)
+        copy(self, "lib/*", self.source_folder, self.package_folder)

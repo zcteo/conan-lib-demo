@@ -1,6 +1,5 @@
-import os
 from conan import ConanFile
-from conan.tools.files import copy
+from conan.tools.files import copy, collect_libs
 
 
 class Pkg(ConanFile):
@@ -22,3 +21,6 @@ class Pkg(ConanFile):
     def package(self):
         copy(self, "include/*", self.source_folder, self.package_folder)
         copy(self, "lib/*", self.source_folder, self.package_folder)
+
+    def package_info(self):
+        self.cpp_info.libs = collect_libs(self)

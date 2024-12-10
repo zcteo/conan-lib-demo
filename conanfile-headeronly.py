@@ -1,5 +1,5 @@
 from conan import ConanFile
-from conan.tools.files import update_conandata, copy
+from conan.tools.files import copy
 
 
 class Pkg(ConanFile):
@@ -8,12 +8,6 @@ class Pkg(ConanFile):
     url = "<Package recipe repository url here, for issues about the package>"
     description = "<Description of Mypackage here>"
     # No settings/options are necessary, this is header only
-
-    def export(self):
-        update_conandata(self, {"sources": {"path": self.recipe_folder}})
-
-    def source(self):
-        copy(self, '*', self.conan_data["sources"]["path"], ".")
 
     def package(self):
         # This will also copy the "include" folder
